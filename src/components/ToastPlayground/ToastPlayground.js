@@ -29,6 +29,18 @@ function ToastPlayground() {
     setVariant('notice');
   }
 
+  const textAreaRef = React.useRef();
+
+  // Will come back to this
+  // React.useEffect(() => {
+  //   function handleEnterKey(event) {
+  //     if (event.code === 'Enter') {
+  //       handleSubmit();
+  //     }
+  //   }
+  //   textAreaRef.current.addEventListener('onKeyDown', handleEnterKey);
+  // });
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -44,6 +56,7 @@ function ToastPlayground() {
             </label>
             <div className={styles.inputWrapper}>
               <textarea
+                ref={textAreaRef}
                 onChange={(event) => setMessage(event.target.value)}
                 id='message'
                 className={styles.messageInput}
