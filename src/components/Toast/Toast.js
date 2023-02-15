@@ -12,16 +12,16 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ toggleToast, variantOption, children }) {
-  const IconComponent = ICONS_BY_VARIANT[variantOption];
+function Toast({ deleteToast, variant, children }) {
+  const IconComponent = ICONS_BY_VARIANT[variant];
   return (
-    <div className={`${styles.toast} ${styles[variantOption]}`}>
+    <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
         <IconComponent size={24} />
       </div>
       <p className={styles.content}>{children}</p>
       <button className={styles.closeButton}>
-        <X size={24} onClick={toggleToast} />
+        <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
     </div>

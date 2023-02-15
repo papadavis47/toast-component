@@ -3,17 +3,30 @@ import React from 'react';
 import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
-import Toast from '../Toast';
+import ToastShelf from '../ToastShelf';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
   const [message, setMessage] = React.useState('');
-  const [variantOption, setVariantOption] = React.useState('notice');
-  const [showToast, setShowToast] = React.useState(false);
+  const [variant, setVariant] = React.useState('notice');
+  const [toastList, setToastList] = React.useState([]);
 
-  function toggleToast() {
-    setShowToast(!showToast);
+  function createToast() {
+    return { id: Math.random(), variant, message };
+  }
+
+  function deleteToast(event) {
+    const filteredToasts = toastList.filter((item) => item.id !== event.target.id);
+    setToastList([...filteredToasts]);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const newToast = createToast();
+    setToastList([...toastList, newToast]);
+    setMessage('');
+    setVariant('notice');
   }
 
   return (
@@ -22,18 +35,8 @@ function ToastPlayground() {
         <img alt='Cute toast mascot' src='/toast.png' />
         <h1>Toast Playground</h1>
       </header>
-      {showToast && (
-        <Toast toggleToast={toggleToast} variantOption={variantOption} showToast={showToast}>
-          {message}
-        </Toast>
-      )}
-
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          toggleToast();
-        }}
-      >
+      <ToastShelf toastList={toastList} deleteToast={deleteToast} />
+      <form onSubmit={handleSubmit}>
         <div className={styles.controlsWrapper}>
           <div className={styles.row}>
             <label htmlFor='message' className={styles.label} style={{ alignSelf: 'baseline' }}>
@@ -60,8 +63,8 @@ function ToastPlayground() {
                       type='radio'
                       name={option}
                       value={option}
-                      checked={variantOption === option}
-                      onChange={(event) => setVariantOption(event.target.value)}
+                      checked={variant === option}
+                      onChange={(event) => setVariant(event.target.value)}
                     />
                     {option}
                   </label>
