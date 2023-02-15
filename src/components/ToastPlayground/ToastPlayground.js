@@ -28,49 +28,56 @@ function ToastPlayground() {
         </Toast>
       )}
 
-      <div className={styles.controlsWrapper}>
-        <div className={styles.row}>
-          <label htmlFor='message' className={styles.label} style={{ alignSelf: 'baseline' }}>
-            Message
-          </label>
-          <div className={styles.inputWrapper}>
-            <textarea
-              onChange={(event) => setMessage(event.target.value)}
-              id='message'
-              className={styles.messageInput}
-              value={message}
-            />
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          toggleToast();
+        }}
+      >
+        <div className={styles.controlsWrapper}>
+          <div className={styles.row}>
+            <label htmlFor='message' className={styles.label} style={{ alignSelf: 'baseline' }}>
+              Message
+            </label>
+            <div className={styles.inputWrapper}>
+              <textarea
+                onChange={(event) => setMessage(event.target.value)}
+                id='message'
+                className={styles.messageInput}
+                value={message}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className={styles.row}>
-          <div className={styles.label}>Variant</div>
-          <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            {VARIANT_OPTIONS.map((option, index) => {
-              return (
-                <label htmlFor={`variant-${option}`} key={index}>
-                  <input
-                    id={`variant-${option}`}
-                    type='radio'
-                    name={option}
-                    value={option}
-                    checked={variantOption === option}
-                    onChange={(event) => setVariantOption(event.target.value)}
-                  />
-                  {option}
-                </label>
-              );
-            })}
+          <div className={styles.row}>
+            <div className={styles.label}>Variant</div>
+            <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
+              {VARIANT_OPTIONS.map((option, index) => {
+                return (
+                  <label htmlFor={`variant-${option}`} key={index}>
+                    <input
+                      id={`variant-${option}`}
+                      type='radio'
+                      name={option}
+                      value={option}
+                      checked={variantOption === option}
+                      onChange={(event) => setVariantOption(event.target.value)}
+                    />
+                    {option}
+                  </label>
+                );
+              })}
+            </div>
           </div>
-        </div>
 
-        <div className={styles.row}>
-          <div className={styles.label} />
-          <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button onClick={toggleToast}>Pop Toast!</Button>
+          <div className={styles.row}>
+            <div className={styles.label} />
+            <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
+              <Button>Pop Toast!</Button>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
