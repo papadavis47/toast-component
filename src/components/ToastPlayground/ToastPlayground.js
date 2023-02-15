@@ -16,8 +16,8 @@ function ToastPlayground() {
     return { id: Math.random(), variant, message };
   }
 
-  function deleteToast(event) {
-    const filteredToasts = toastList.filter((item) => item.id !== event.target.id);
+  function deleteToast(id) {
+    const filteredToasts = toastList.filter((item) => id !== item.id);
     setToastList([...filteredToasts]);
   }
 
