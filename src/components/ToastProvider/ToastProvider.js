@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useEscapeKey } from '../../hooks/utilHooks';
+
 export const ToastContext = React.createContext();
 
 export const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
@@ -9,18 +11,20 @@ function ToastProvider({ children }) {
   const [variant, setVariant] = React.useState('notice');
   const [toastList, setToastList] = React.useState([]);
 
-  React.useEffect(() => {
-    function dismissAllToasts(event) {
-      if (event.code === 'Escape') {
-        setToastList([]);
-      }
-    }
+  useEscapeKey(setToastList);
 
-    window.addEventListener('keydown', dismissAllToasts);
-    return () => {
-      window.removeEventListener('keydown', dismissAllToasts);
-    };
-  }, []);
+  // React.useEffect(() => {
+  //   function dismissAllToasts(event) {
+  //     if (event.code === 'Escape') {
+  //       setToastList([]);
+  //     }
+  //   }
+
+  //   window.addEventListener('keydown', dismissAllToasts);
+  //   return () => {
+  //     window.removeEventListener('keydown', dismissAllToasts);
+  //   };
+  // }, []);
 
   function createToast() {
     return { id: Math.random(), color: variant, message };
