@@ -13,11 +13,11 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ children, id }) {
-  const { deleteToast, variant } = React.useContext(ToastContext);
-  const IconComponent = ICONS_BY_VARIANT[variant];
+function Toast({ color, children, id }) {
+  const { deleteToast } = React.useContext(ToastContext);
+  const IconComponent = ICONS_BY_VARIANT[color];
   return (
-    <div className={`${styles.toast} ${styles[variant]}`}>
+    <div className={`${styles.toast} ${styles[color]}`}>
       <div className={styles.iconContainer}>
         <IconComponent size={24} />
       </div>

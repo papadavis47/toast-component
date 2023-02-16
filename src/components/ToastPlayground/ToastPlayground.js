@@ -1,24 +1,15 @@
 import React from 'react';
 
 import Button from '../Button';
+import { VARIANT_OPTIONS } from '../ToastProvider';
 
 import styles from './ToastPlayground.module.css';
 import ToastShelf from '../ToastShelf';
 import { ToastContext } from '../ToastProvider';
 
-const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
-
 function ToastPlayground() {
-  const {
-    deleteToast,
-    message,
-    toastList,
-    createToast,
-    setToastList,
-    setMessage,
-    setVariant,
-    variant,
-  } = React.useContext(ToastContext);
+  const { message, toastList, setMessage, setVariant, variant, createToast, setToastList } =
+    React.useContext(ToastContext);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -28,25 +19,13 @@ function ToastPlayground() {
     setVariant('notice');
   }
 
-  // const textAreaRef = React.useRef();
-
-  // Will come back to this
-  // React.useEffect(() => {
-  //   function handleEnterKey(event) {
-  //     if (event.code === 'Enter') {
-  //       handleSubmit();
-  //     }
-  //   }
-  //   textAreaRef.current.addEventListener('onKeyDown', handleEnterKey);
-  // });
-
   return (
     <div className={styles.wrapper}>
       <header>
         <img alt='Cute toast mascot' src='/toast.png' />
         <h1>Toast Playground</h1>
       </header>
-      <ToastShelf toastList={toastList} deleteToast={deleteToast} />
+      <ToastShelf />
       <form onSubmit={handleSubmit}>
         <div className={styles.controlsWrapper}>
           <div className={styles.row}>
