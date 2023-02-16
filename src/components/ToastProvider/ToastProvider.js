@@ -9,6 +9,19 @@ function ToastProvider({ children }) {
   const [variant, setVariant] = React.useState('notice');
   const [toastList, setToastList] = React.useState([]);
 
+  React.useEffect(() => {
+    function dismissAllToasts(event) {
+      if (event.code === 'Escape') {
+        setToastList([]);
+      }
+    }
+
+    window.addEventListener('keydown', dismissAllToasts);
+    return () => {
+      window.removeEventListener('keydown', dismissAllToasts);
+    };
+  }, []);
+
   function createToast() {
     return { id: Math.random(), color: variant, message };
   }
