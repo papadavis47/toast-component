@@ -4,22 +4,21 @@ import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
 import ToastShelf from '../ToastShelf';
+import { ToastContext } from '../ToastProvider';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
-  const [message, setMessage] = React.useState('');
-  const [variant, setVariant] = React.useState('notice');
-  const [toastList, setToastList] = React.useState([]);
-
-  function createToast() {
-    return { id: Math.random(), variant, message };
-  }
-
-  function deleteToast(id) {
-    const filteredToasts = toastList.filter((item) => id !== item.id);
-    setToastList([...filteredToasts]);
-  }
+  const {
+    deleteToast,
+    message,
+    toastList,
+    createToast,
+    setToastList,
+    setMessage,
+    setVariant,
+    variant,
+  } = React.useContext(ToastContext);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -29,7 +28,7 @@ function ToastPlayground() {
     setVariant('notice');
   }
 
-  const textAreaRef = React.useRef();
+  // const textAreaRef = React.useRef();
 
   // Will come back to this
   // React.useEffect(() => {
@@ -56,7 +55,7 @@ function ToastPlayground() {
             </label>
             <div className={styles.inputWrapper}>
               <textarea
-                ref={textAreaRef}
+                // ref={textAreaRef}
                 onChange={(event) => setMessage(event.target.value)}
                 id='message'
                 className={styles.messageInput}
